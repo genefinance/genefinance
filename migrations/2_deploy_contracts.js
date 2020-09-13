@@ -1,4 +1,5 @@
 const MvsToken = artifacts.require("MvsToken");
+const DnaToken = artifacts.require("DnaToken");
 const MasterChef = artifacts.require("MasterChef");
 
 
@@ -17,6 +18,8 @@ module.exports = async function (deployer, network, accounts) {
     let bonusEndBlock = config.bonusEndBlock;
 
     await deployer.deploy(MvsToken, { from: deployAccount });
+
+    await deployer.deploy(DnaToken, 'DNAChain Core Asset', 'DNA');
 
     await deployer.deploy(MasterChef,
         MvsToken.address,

@@ -11,10 +11,10 @@ module.exports = async function (deployer, network, accounts) {
 
     let config = require('./config')(network);
 
-    if (!config.coreLpContract) {
-        throw new Error("Please set the value of coreLpContract");
+    if (!config.mvsLpContract) {
+        throw new Error("Please set the value of mvsLpContract");
     }
 
-    await instance.add(config.coreLpPoint, config.coreLpContract, true, { from: accounts[0] });
+    await instance.add(config.mvsLpPoint, config.mvsLpContract, true, { from: accounts[0] });
 
 }

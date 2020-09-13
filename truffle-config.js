@@ -33,7 +33,7 @@ module.exports = {
         return new HDWalletProvider(privatekey_rinkeby, "https://rinkeby.infura.io/v3/" + infura_v3_apikey)
       },
       network_id: 4,
-      gas: 3012388,
+      gas: 6000000,
       gasPrice: 30000000000,
       skipDryRun: true
     },

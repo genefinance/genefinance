@@ -1,7 +1,7 @@
 module.exports = {
     rewardPerBlock: '100000000000000000000',
-    startBlock: 7184500,
-    bonusEndBlock: 7190000,
+    startBlock: 7190500,
+    bonusEndBlock: 7205000,
 
     //init pools
     initPools: [
@@ -21,6 +21,10 @@ module.exports = {
     wethContract: "0xc778417e063141139fce010982780140aa0cd5ab",
 
     //MVS-ETH UNI-V2 LP Token address. Add manually after creating it 
-    coreLpContract: "",
-    coreLpPoint: 2000,
+    mvsLpContract: "0x59dd3a6271cfc383606f52747a81f7418e069e29",
+    mvsLpPoint: 2000,
+
+    //DNA-ETH UNI-V2 LP Token address. Add manually after creating it 
+    dnaLpContract: "0x6fbedb8cd0b9fab46fd58c52ae76cb6d9aebaf7d",
+    dnaLpPoint: 2000,
 }
