@@ -1,3 +1,20 @@
+const dotenv = require('dotenv');
+const result = dotenv.config();
+if (result.error) {
+  throw result.error;
+}
+console.log(result.parsed);
+
+const NonceTrackerSubprovider = require("web3-provider-engine/subproviders/nonce-tracker");
+
+const HDWalletProvider = require("@truffle/hdwallet-provider");
+
+const infura_v3_apikey = 'ab267a1e1fa74bf4a022b837c857b408';
+
+const privatekey_develop = process.env.privatekey_develop;
+const privatekey_rinkeby = process.env.privatekey_rinkeby;
+const privatekey_mainnet = process.env.privatekey_mainnet;
+
 module.exports = {
   // Uncommenting the defaults below
   // provides for an easier quick-start with Ganache.
@@ -5,19 +22,35 @@ module.exports = {
   // see <http://truffleframework.com/docs/advanced/configuration>
   // for more details on how to specify configuration options!
   //
-  //networks: {
-  //  development: {
-  //    host: "127.0.0.1",
-  //    port: 7545,
-  //    network_id: "*"
-  //  },
-  //  test: {
-  //    host: "127.0.0.1",
-  //    port: 7545,
-  //    network_id: "*"
-  //  }
-  //}
-  //
+  networks: {
+    // development: {
+    //   //https://learnblockchain.cn/docs/truffle/quickstart.html#truffle-develop
+    //   provider: new HDWalletProvider(privatekey_develop, "http://127.0.0.1:9545/"),
+    //   network_id: "*"
+    // },
+    rinkeby: {
+      provider: function () {
+        return new HDWalletProvider(privatekey_rinkeby, "https://rinkeby.infura.io/v3/" + infura_v3_apikey)
+      },
+      network_id: 4,
+      gas: 3012388,
+      gasPrice: 30000000000,
+      skipDryRun: true
+    },
+    mainnet: {
+      provider: function () {
+        var wallet = new HDWalletProvider(privatekey_mainnet, "https://mainnet.infura.io/v3/" + infura_v3_apikey);
+        var nonceTracker = new NonceTrackerSubprovider();
+        wallet.engine._providers.unshift(nonceTracker);
+        nonceTracker.setEngine(wallet.engine);
+        return wallet;
+      },
+      gas: 6000000,
+      network_id: 1,
+      gasPrice: 10 * 1000000000
+    }
+
+  },
   compilers: {
     solc: {
       version: "0.6.12"
