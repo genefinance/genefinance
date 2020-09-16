@@ -13,6 +13,7 @@ const infura_v3_apikey = 'ab267a1e1fa74bf4a022b837c857b408';
 
 const privatekey_develop = process.env.privatekey_develop;
 const privatekey_rinkeby = process.env.privatekey_rinkeby;
+const privatekey_ropsten = process.env.privatekey_ropsten;
 const privatekey_mainnet = process.env.privatekey_mainnet;
 
 module.exports = {
@@ -33,6 +34,15 @@ module.exports = {
         return new HDWalletProvider(privatekey_rinkeby, "https://rinkeby.infura.io/v3/" + infura_v3_apikey)
       },
       network_id: 4,
+      gas: 6000000,
+      gasPrice: 30000000000,
+      skipDryRun: true
+    },
+    ropsten: {
+      provider: function () {
+        return new HDWalletProvider(privatekey_ropsten, "https://ropsten.infura.io/v3/" + infura_v3_apikey)
+      },
+      network_id: 3,
       gas: 6000000,
       gasPrice: 30000000000,
       skipDryRun: true

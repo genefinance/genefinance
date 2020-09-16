@@ -8,7 +8,7 @@ pragma experimental ABIEncoderV2;
 
 import "@openzeppelin/contracts/presets/ERC20PresetMinterPauser.sol";
 
-contract DnaToken is ERC20PresetMinterPauser {
+contract EtpToken is ERC20PresetMinterPauser {
     bytes32 public constant ADJUST_ROLE = keccak256("ADJUST_ROLE");
     bytes32 public constant DELIVER_ROLE = keccak256("DELIVER_ROLE");
 
@@ -16,10 +16,10 @@ contract DnaToken is ERC20PresetMinterPauser {
     uint256 arrayLength = 100;
     uint256 private id;
 
-    uint256 private _minDeliver = 10000;
-    uint256 private _minCollect = 10000;
+    uint256 private _minDeliver = 100000000;
+    uint256 private _minCollect = 100000000;
 
-    uint8 private decimals_ = 4;
+    uint8 private decimals_ = 8;
 
     event Deliver(address indexed to, uint256 amount, string from, string txid);
 

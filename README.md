@@ -12,16 +12,13 @@ https://app.DnaSwap.org. Feel free to read the code. More details coming soon.
 - MvsBar - https://etherscan.io/address/0x8798249c2e607446efb7ad49ec89dd1865ff4272
 - MvsMaker - https://etherscan.io/address/0x54844afe358ca98e4d09aae869f25bfe072e1b1a
 
-## uniswap支持rinkeby
+## Uniswap Rinkeby Contracts
 factory: 0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f
 routerv2: 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D
 
-## License
-
-WTFPL
 
 
-## Deployed Rinkeby
+## DnaSwap Rinkeby Contracts
 
 Migration -  0x2eFF4cEB3b37ea9fB13688aF41552D052F8e4f3C
 MvsToken - 0x29A8513EEc43d96a77C0B2457c18B8D3113cd427
@@ -32,5 +29,10 @@ MVSLP - 0x59dd3a6271cfc383606f52747a81f7418e069e29
 DNALP - 0x6fbedb8cd0b9fab46fd58c52ae76cb6d9aebaf7d
 
 
-## 查看数据
-https://justsmartcontracts.dev/#/
+## Tools
+Smart Contract Call : https://justsmartcontracts.dev/#/
+
+
+## License
+
+WTFPL
