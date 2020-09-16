@@ -16,9 +16,13 @@ module.exports = function () {
         let dnaTokenContract = await dnaToken.at(dnaTokenAddress);
         let etpTokenContract = await etpToken.at(eptTokenAddress);
 
-
-        let DELIVER_ROLE = web3.utils.fromAscii("DELIVER_ROLE");
-        let MINTER_ROLE = web3.utils.fromAscii("MINTER_ROLE");
+        let DELIVER_ROLE = web3.utils.soliditySha3('DELIVER_ROLE');
+        let MINTER_ROLE = web3.utils.soliditySha3('MINTER_ROLE');
+        //let DELIVER_ROLE = web3.sha3(web3.utils.toHex("DELIVER_ROLE"), { encoding: "hex" });//web3.utils.fromAscii("DELIVER_ROLE");
+        //let MINTER_ROLE = web3.sha3(web3.utils.toHex("MINTER_ROLE"), { encoding: "hex" });// web3.utils.fromAscii("MINTER_ROLE");
+        // console.log("DELIVER_ROLE: " + DELIVER_ROLE);
+        // console.log("MINTER_ROLE: " + MINTER_ROLE);
+        //return;
 
         await dnaTokenContract.grantRole(DELIVER_ROLE, deliver, { from: from })
         await dnaTokenContract.grantRole(MINTER_ROLE, deliver, { from: from })

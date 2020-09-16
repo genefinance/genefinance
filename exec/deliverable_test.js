@@ -14,13 +14,13 @@ module.exports = function () {
 
         let dnaAmount = 1000000;
 
-        await dnaTokenContract.deliver(from, dnaAmount, 'test', 'test', { from: from })
-        await dnaTokenContract.collect(dnaAmount, 'myetpaddress', { from: from })
+        await dnaTokenContract.deliver(from, dnaAmount, 'test-1', 'test-1', { from: from })
+        await dnaTokenContract.collect(dnaAmount, 'tJHKCdYhTY8Pd1FPLDXQ4P76Hp7uLbEwz6', { from: from })
 
         let etpAmount = 10000000000;
 
-        await etpTokenContract.deliver(from, etpAmount, 'test', 'test', { from: from })
-        await etpTokenContract.collect(etpAmount, 'myetpaddress', { from: from })
+        await etpTokenContract.deliver(from, etpAmount, 'test-1', 'test-1', { from: from })
+        await etpTokenContract.collect(etpAmount, 'tJHKCdYhTY8Pd1FPLDXQ4P76Hp7uLbEwz6', { from: from })
 
         return true;
     }
