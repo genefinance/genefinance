@@ -232,7 +232,8 @@ contract MasterChef is Ownable {
             .mul(mvsPerBlock)
             .mul(pool.allocPoint)
             .div(totalAllocPoint);
-        mvs.mint(devaddr, mvsReward.div(10));
+        // attention: we remove dev reward
+        //mvs.mint(devaddr, mvsReward.div(10));
         mvs.mint(address(this), mvsReward);
         pool.accMvsPerShare = pool.accMvsPerShare.add(
             mvsReward.mul(1e12).div(lpSupply)
