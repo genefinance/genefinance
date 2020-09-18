@@ -6,7 +6,7 @@ var eptTokenAddress = '0x7897E69D826eB53e7a3C7373aD2D4290f9ff2466';
 
 var from = "0xEa15bd096c5331C5a1392b69dE3F1D8983d5dB7b";
 
-//truffle exec ./exec/deliverable_test.js --network ropsten
+//truffle exec ./exec/test/deliverable_test.js --network ropsten
 module.exports = function () {
     async function doDeliverable() {
         let dnaTokenContract = await dnaToken.at(dnaTokenAddress);

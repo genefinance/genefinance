@@ -18,8 +18,8 @@ module.exports = async function (deployer, network, accounts) {
     let dnaToken = await DnaToken.deployed();
     let etpToken = await EtpToken.deployed();
 
-    await instance.add(config.dnaTokenPoint, config.dnaLockEndBlock, dnaToken.address, true, { from: accounts[0] });
+    await instance.add(config.dnaTokenPoint, config.dnaLockEndBlock, config.rewardEndBlock, dnaToken.address, true, { from: accounts[0] });
 
-    await instance.add(config.etpTokenPoint, config.etpLockEndBlock, etpToken.address, true, { from: accounts[0] });
+    await instance.add(config.etpTokenPoint, config.etpLockEndBlock, config.rewardEndBlock, etpToken.address, true, { from: accounts[0] });
 
 }

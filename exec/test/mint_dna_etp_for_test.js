@@ -2,13 +2,13 @@ var dnaToken = artifacts.require("DnaToken");
 var etpToken = artifacts.require("EtpToken");
 var web3 = require('web3');
 
-var dnaTokenAddress = '0xde372f91Ab046F8212a3F2c73F3EFee3edDfd794';
-var eptTokenAddress = '0x05d7a65017448c6ddD7f2119A776661Ffb79cf98';
+var dnaTokenAddress = '0xF251b949898d51C147e1eF26e4F23847298a43CB';
+var eptTokenAddress = '0x860f00ddba6F7bFC5FDf0001746700930658D166';
 
 var from = "0xEa15bd096c5331C5a1392b69dE3F1D8983d5dB7b";
 
 
-//truffle exec ./exec/mint_dna_etp_for_test.js --network ropsten
+//truffle exec ./exec/test/mint_dna_etp_for_test.js --network ropsten
 module.exports = function () {
     async function doMint() {
         let dnaTokenContract = await dnaToken.at(dnaTokenAddress);
