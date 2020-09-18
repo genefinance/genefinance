@@ -56,6 +56,7 @@ contract MasterChef is Ownable {
         uint256 accMvsPerShare; // Accumulated MVSs per share, times 1e12. See below.
         //attention: We added this lock
         uint256 lockEndBlock; // Earliest block number that LP token can be withdraw.
+        uint256 rewardEndBlock; // Calculate reward before.
     }
 
     // The MVS TOKEN!
@@ -79,6 +80,8 @@ contract MasterChef is Ownable {
     uint256 public totalAllocPoint = 0;
     // The block number when MVS mining starts.
     uint256 public startBlock;
+
+    mapping(IERC20 => bool) public poolExists;
 
     event Deposit(address indexed user, uint256 indexed pid, uint256 amount);
     event Withdraw(address indexed user, uint256 indexed pid, uint256 amount);
@@ -111,9 +114,11 @@ contract MasterChef is Ownable {
     function add(
         uint256 _allocPoint,
         uint256 _lockEndBlock,
+        uint256 _rewardEndBlock,
         IERC20 _lpToken,
         bool _withUpdate
     ) public onlyOwner {
+        require(poolExists[_lpToken] == false, "Add Pool: Already existed");
         if (_withUpdate) {
             massUpdatePools();
         }
@@ -127,6 +132,7 @@ contract MasterChef is Ownable {
                 allocPoint: _allocPoint,
                 lastRewardBlock: lastRewardBlock,
                 lockEndBlock: _lockEndBlock,
+                rewardEndBlock: _rewardEndBlock,
                 accMvsPerShare: 0
             })
         );
@@ -136,6 +142,7 @@ contract MasterChef is Ownable {
     function set(
         uint256 _pid,
         uint256 _allocPoint,
+        uint256 _rewardEndBlock,
         bool _withUpdate
     ) public onlyOwner {
         if (_withUpdate) {
@@ -145,6 +152,7 @@ contract MasterChef is Ownable {
             _allocPoint
         );
         poolInfo[_pid].allocPoint = _allocPoint;
+        poolInfo[_pid].rewardEndBlock = _rewardEndBlock;
     }
 
     // Set the migrator contract. Can only be called by the owner.
@@ -165,20 +173,35 @@ contract MasterChef is Ownable {
     }
 
     // Return reward multiplier over the given _from to _to block.
-    function getMultiplier(uint256 _from, uint256 _to)
-        public
-        view
-        returns (uint256)
-    {
-        if (_to <= bonusEndBlock) {
-            return _to.sub(_from).mul(BONUS_MULTIPLIER);
-        } else if (_from >= bonusEndBlock) {
-            return _to.sub(_from);
+    function getMultiplier(
+        uint256 _from,
+        uint256 _to,
+        uint256 _rewardEndBlock
+    ) public view returns (uint256) {
+        if (_from > _rewardEndBlock) {
+            return 0;
+        }
+
+        if (_to <= _rewardEndBlock) {
+            if (_to <= bonusEndBlock) {
+                return _to.sub(_from).mul(BONUS_MULTIPLIER);
+            } else if (_from >= bonusEndBlock) {
+                return _to.sub(_from);
+            } else {
+                return
+                    bonusEndBlock.sub(_from).mul(BONUS_MULTIPLIER).add(
+                        _to.sub(bonusEndBlock)
+                    );
+            }
         } else {
-            return
-                bonusEndBlock.sub(_from).mul(BONUS_MULTIPLIER).add(
-                    _to.sub(bonusEndBlock)
-                );
+            if (_from >= bonusEndBlock) {
+                return _rewardEndBlock.sub(_from);
+            } else {
+                return
+                    bonusEndBlock.sub(_from).mul(BONUS_MULTIPLIER).add(
+                        _rewardEndBlock.sub(bonusEndBlock)
+                    );
+            }
         }
     }
 
@@ -195,7 +218,8 @@ contract MasterChef is Ownable {
         if (block.number > pool.lastRewardBlock && lpSupply != 0) {
             uint256 multiplier = getMultiplier(
                 pool.lastRewardBlock,
-                block.number
+                block.number,
+                pool.rewardEndBlock
             );
             uint256 mvsReward = multiplier
                 .mul(mvsPerBlock)
@@ -227,7 +251,11 @@ contract MasterChef is Ownable {
             pool.lastRewardBlock = block.number;
             return;
         }
-        uint256 multiplier = getMultiplier(pool.lastRewardBlock, block.number);
+        uint256 multiplier = getMultiplier(
+            pool.lastRewardBlock,
+            block.number,
+            pool.rewardEndBlock
+        );
         uint256 mvsReward = multiplier
             .mul(mvsPerBlock)
             .mul(pool.allocPoint)
@@ -274,9 +302,6 @@ contract MasterChef is Ownable {
         UserInfo storage user = userInfo[_pid][msg.sender];
         require(user.amount >= _amount, "withdraw: not good");
 
-        //attention: We added this lock，lock both MVS and LP
-        require(pool.lockEndBlock <= block.number, "withdraw: token locked");
-
         updatePool(_pid);
         uint256 pending = user.amount.mul(pool.accMvsPerShare).div(1e12).sub(
             user.rewardDebt
@@ -285,6 +310,11 @@ contract MasterChef is Ownable {
             safeMvsTransfer(msg.sender, pending);
         }
         if (_amount > 0) {
+            //attention: We added this lock，lock MVS
+            require(
+                pool.lockEndBlock <= block.number,
+                "withdraw: token locked"
+            );
             user.amount = user.amount.sub(_amount);
             pool.lpToken.safeTransfer(address(msg.sender), _amount);
         }
