@@ -9,7 +9,7 @@ const NonceTrackerSubprovider = require("web3-provider-engine/subproviders/nonce
 
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 
-const infura_v3_apikey = 'ab267a1e1fa74bf4a022b837c857b408';
+const infura_v3_apikey = process.env.infura_v3_apikey;
 
 const privatekey_develop = process.env.privatekey_develop;
 const privatekey_rinkeby = process.env.privatekey_rinkeby;

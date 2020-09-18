@@ -3,7 +3,6 @@ const MasterChef = artifacts.require("MasterChef");
 
 module.exports = async function (deployer, network, accounts) {
     let instance = await MasterChef.deployed();
-
     if (network == 'test') {
         //Is it OK?
         return;
@@ -11,10 +10,7 @@ module.exports = async function (deployer, network, accounts) {
 
     let config = require('./config')(network);
 
-    if (!config.mvsLpContract) {
-        throw new Error("Please set the value of mvsLpContract");
+    for (let i = 0; i < config.initPools.length; i++) {
+        await instance.add(config.initPools[i].point, 0, config.initPools[i].address, true, { from: accounts[0] });
     }
-
-    await instance.add(config.mvsLpPoint, config.mvsLpContract, true, { from: accounts[0] });
-
 }

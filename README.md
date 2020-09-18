@@ -29,6 +29,22 @@ MVSLP - 0x59dd3a6271cfc383606f52747a81f7418e069e29
 DNALP - 0x6fbedb8cd0b9fab46fd58c52ae76cb6d9aebaf7d
 
 
+## DnaSwap Ropsten Full Contracts
+
+
+MvsToken（Gene） - 0x98e0Cfd8e236241460B86804A53ce17f79961178
+
+DnaToken - 0xde372f91Ab046F8212a3F2c73F3EFee3edDfd794
+
+EtpToken - 0x05d7a65017448c6ddD7f2119A776661Ffb79cf98
+
+MasterChef - 0x5a4C54f88137e8A2Ce1E21E985510d2A85E29377
+
+Timelock - 0x0C0AFEA84acd1F48B2B8faACf65D6650924F2697
+
+GovernorAlpha - 0x9Bb46Ec4F0C4e405387517C6F6f3669EE7a32d77
+
+
 ## Tools
 Smart Contract Call : https://justsmartcontracts.dev/#/
 

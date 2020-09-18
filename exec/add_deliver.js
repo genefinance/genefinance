@@ -8,7 +8,7 @@ var eptTokenAddress = '0x7897E69D826eB53e7a3C7373aD2D4290f9ff2466';
 var from = "0xEa15bd096c5331C5a1392b69dE3F1D8983d5dB7b";
 
 //@211
-var deliver = "0x053175F38252a29a7A250a6aC79824189FCb8501";
+var deliver = "0x9406ff509d0c9bcbe9d7bdde6cd22cb2f547824d";
 
 //truffle exec ./exec/add_deliver.js --network ropsten
 module.exports = function () {

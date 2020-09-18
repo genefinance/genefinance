@@ -7,11 +7,11 @@ module.exports = {
     initPools: [
         {//ETH/DAI UNI-LP
             address: '0x1c5dee94a34d795f9eeef830b68b80e44868d316',
-            point: 1000
+            point: 22
         },
         {//ETH/COMP UNI-LP
             address: '0xe0e6a62dfcea4386fb3a9d4a58ae474f2d1f0870',
-            point: 1000
+            point: 22
         }
     ],
 
@@ -22,9 +22,11 @@ module.exports = {
 
     //MVS-ETH UNI-V2 LP Token address. Add manually after creating it 
     mvsLpContract: "",
-    mvsLpPoint: 2000,
+    mvsLpPoint: 444,
 
-    //DNA-ETH UNI-V2 LP Token address. Add manually after creating it 
-    dnaLpContract: "",
-    dnaLpPoint: 2000,
+    dnaTokenPoint: 222,
+    dnaLockEndBlock: 8700000,
+
+    etpTokenPoint: 222,
+    etpLockEndBlock: 8700000
 }
