@@ -44,7 +44,7 @@ Timelock - 0x0C0AFEA84acd1F48B2B8faACf65D6650924F2697
 
 GovernorAlpha - 0x9Bb46Ec4F0C4e405387517C6F6f3669EE7a32d77
 
-## DnaSwap Ropsten / Without Dev Reward / With reward end
+## DnaSwap Ropsten / Without Dev Reward / With reward end / 09-18
 
 MvsToken（Gene）- 0x9161c626B0Da9cE64bB83cb960d70DE39C35A77e
 
@@ -60,6 +60,23 @@ GovernorAlpha - 0xc6535dEc11d16d776A98e465Fa52ddF1B8Cd52af
 
 GENE-ETH-LP - 0x3c832cf9480d768A9019c6B9E34F0EBA85a89E14
 
+## DnaSwap Ropsten / Without Dev Reward / With reward end / 09-22
+
+Migrations - 0xf23B554D3DC0d3bbfC340947149E0B76A984C2bF
+
+MvsToken（Gene）- 0x37806cAbAcEA98Bc41D2086439004a149b80F259
+
+DnaToken - 0xc0046Fdf42bC99009F0833EDaeD88d9E423A781d
+
+EtpToken - 0xf6F3224432956154644d475a7D248c11d1782213
+
+MasterChef - 0x9453e3c8eC47d2C3aa79fD8075d63A7C708C7bf9
+
+Timelock - 0xF4764588c9A7f70893D5C61d89f414FE3F7F8bbA
+
+GovernorAlpha - 0xCf0e9580678b11E9da98FF4F424d75F40433Eb1f
+
+GENE-ETH-LP - 0xBa223CA5091026fca4076ab65166e8B1E0d2F256
 
 ## Tools
 Smart Contract Call : https://justsmartcontracts.dev/#/

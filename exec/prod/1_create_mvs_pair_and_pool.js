@@ -2,19 +2,26 @@
 const UniswapV2Factory = artifacts.require("UniswapV2Factory");
 
 const MasterChef = artifacts.require("MasterChef");
+const MvsToken = artifacts.require("MvsToken");
 
 
-//truffle exec ./exec/prod/create_mvs_pair_and_pool.js --network ropsten
+//truffle exec ./exec/prod/1_create_mvs_pair_and_pool.js --network ropsten
 module.exports = function () {
     let network = process.argv[process.argv.length - 1]
     let config = require('../../migrations/config')(network);
 
     async function doCreate() {
 
+        let masterChefIns = await MasterChef.deployed();
+        let mvsTokenIns = await MvsToken.deployed();
 
-        let mvsTokenContract = config.mvsTokenContract;
+        console.log("masterChefIns:" + masterChefIns.address);
+        console.log("mvsTokenIns:" + mvsTokenIns.address);
+
+        let mvsTokenContract = mvsTokenIns.address;//config.mvsTokenContract;
+        let masterChefContract = masterChefIns.address//config.masterChefContract;
+
         let wethTokenContract = config.wethContract;
-        let masterChefContract = config.masterChefContract;
         let mvsLpContract = config.mvsLpContract;
         let mvsLpPoint = config.mvsLpPoint;
         let rewardEndBlock = config.rewardEndBlock;

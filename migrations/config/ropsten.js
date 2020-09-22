@@ -1,9 +1,9 @@
 module.exports = {
     deployAccount: '0xEa15bd096c5331C5a1392b69dE3F1D8983d5dB7b',
     rewardPerBlock: '100000000000000000000',
-    startBlock: 8708162,
-    bonusEndBlock: 8714808,
-    rewardEndBlock: 8721454,
+    startBlock: 8734120,
+    bonusEndBlock: 8737000,
+    rewardEndBlock: 8739880,
 
     //init pools
     initPools: [
@@ -23,16 +23,16 @@ module.exports = {
     wethContract: "0xc778417e063141139fce010982780140aa0cd5ab",
 
     //TODO: Add manually after creating it 
-    masterChefContract: '0xF75B7e9e2e99345F8CC62afDDf486F7563753a32',
+    masterChefContract: '',
 
     //TODO: Add manually after creating it 
-    mvsTokenContract: '0x9161c626B0Da9cE64bB83cb960d70DE39C35A77e',
+    mvsTokenContract: '',
     mvsLpContract: "",//Will try create pair if empty
     mvsLpPoint: 446,
 
     dnaTokenPoint: 222,
-    dnaLockEndBlock: 8711485,
+    dnaLockEndBlock: 8737000,
 
     etpTokenPoint: 222,
-    etpLockEndBlock: 8711485
+    etpLockEndBlock: 8737000
 }
