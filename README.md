@@ -1,6 +1,18 @@
 # DnaSwap 🍣
 
-https://app.DnaSwap.org. Feel free to read the code. More details coming soon.
+https://dnaswap.com. Feel free to read the code. More details coming soon.
+
+# Deploy
+truffle migrate --network ropsten --reset
+
+truffle exec ./exec/prod/1_create_mvs_pair_and_pool.js --network ropsten
+
+truffle exec ./exec/prod/2_transfer_masterchef_to_timelock.js --network ropsten
+
+
+#just for test
+truffle exec ./exec/test/mint_dna_etp_for_test.js --network ropsten
+
 
 ## Deployed Contracts / Hash
 
@@ -77,6 +89,24 @@ Timelock - 0xF4764588c9A7f70893D5C61d89f414FE3F7F8bbA
 GovernorAlpha - 0xCf0e9580678b11E9da98FF4F424d75F40433Eb1f
 
 GENE-ETH-LP - 0xBa223CA5091026fca4076ab65166e8B1E0d2F256
+
+## DnaSwap Ropsten / Without Dev Reward / With reward end / 10-09
+
+Migrations - 0x8448530E7e72a9fb5D11653228Be6a44B40CCA5a
+
+MvsToken（Gene）- 0x5A6EE474DB6cE12e32be3b8eD3dfECE3F408f027
+
+DnaToken - 0x730863158A2C585784ca846E44e7dF6eC2790377
+
+EtpToken - 0x4436FA972f2EFbb9F58b20aE755E386b581D00f3
+
+MasterChef - 0xE13Ec5865c324731775D97258FCB8b4Cee00f6A4
+
+Timelock - 0xe559A5FCE7F6B798796138DD3285c6aFE8b7115b
+
+GovernorAlpha - 0x9E858A0DdeB667F7D6f9601Ba5A7b3F4B497bb61
+
+GENE-ETH-LP - 0xb2D37965c3990945Eb478C2477AfcE6BF3eb8442
 
 ## Tools
 Smart Contract Call : https://justsmartcontracts.dev/#/

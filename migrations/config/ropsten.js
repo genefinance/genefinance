@@ -1,9 +1,9 @@
 module.exports = {
     deployAccount: '0xEa15bd096c5331C5a1392b69dE3F1D8983d5dB7b',
     rewardPerBlock: '100000000000000000000',
-    startBlock: 8734120,
-    bonusEndBlock: 8737000,
-    rewardEndBlock: 8739880,
+    startBlock: 8838000,
+    bonusEndBlock: 8878000,
+    rewardEndBlock: 8918000,
 
     //init pools
     initPools: [
@@ -31,8 +31,8 @@ module.exports = {
     mvsLpPoint: 446,
 
     dnaTokenPoint: 222,
-    dnaLockEndBlock: 8737000,
+    dnaLockEndBlock: 8878000,
 
     etpTokenPoint: 222,
-    etpLockEndBlock: 8737000
+    etpLockEndBlock: 8878000
 }
