@@ -1,4 +1,4 @@
-# DnaSwap 🍣
+# DnaSwap
 
 https://dnaswap.com. Feel free to read the code. More details coming soon.
 
@@ -11,7 +11,16 @@ truffle exec ./exec/prod/2_transfer_masterchef_to_timelock.js --network ropsten
 
 
 #just for test
+
 truffle exec ./exec/test/mint_dna_etp_for_test.js --network ropsten
+
+#verify contract
+
+truffle run verify DlpToken --network ropsten --license WTFPL --debug
+
+#concats solidity files
+npm install truffle-flattener -g
+truffle-flattener <solidity-files>
 
 
 ## Deployed Contracts / Hash
@@ -99,6 +108,8 @@ MvsToken（Gene）- 0x5A6EE474DB6cE12e32be3b8eD3dfECE3F408f027
 DnaToken - 0x730863158A2C585784ca846E44e7dF6eC2790377
 
 EtpToken - 0x4436FA972f2EFbb9F58b20aE755E386b581D00f3
+
+DlpToken - 0xE65bf4E89D193cff768d5CF03995627BB780Af23
 
 MasterChef - 0xE13Ec5865c324731775D97258FCB8b4Cee00f6A4
 

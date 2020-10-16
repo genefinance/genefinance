@@ -11,5 +11,8 @@
     "truffle": "^5.1.41",
     "truffle-flattener": "^1.4.4",
     "web3-provider-engine": "^15.0.12"
+  },
+  "devDependencies": {
+    "truffle-plugin-verify": "^0.4.0"
   }
 }

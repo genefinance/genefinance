@@ -15,6 +15,8 @@ const privatekey_develop = process.env.privatekey_develop;
 const privatekey_rinkeby = process.env.privatekey_rinkeby;
 const privatekey_ropsten = process.env.privatekey_ropsten;
 const privatekey_mainnet = process.env.privatekey_mainnet;
+const etherscan_api_key = process.env.etherscan_api_key;
+
 
 module.exports = {
   // Uncommenting the defaults below
@@ -67,5 +69,14 @@ module.exports = {
     solc: {
       version: "0.6.12"
     }
+  },
+  plugins: [
+    'truffle-plugin-verify'
+  ],
+  api_keys: {
+    etherscan: etherscan_api_key
+  },
+  verify: {
+    preamble: "DNASwap Version: 1.0.0"
   }
 };
