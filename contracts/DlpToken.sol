@@ -8,7 +8,7 @@ pragma experimental ABIEncoderV2;
 
 import "./BaseToken.sol";
 
-contract DnaToken is BaseToken {
+contract DlpToken is BaseToken {
     constructor(string memory name, string memory symbol)
         public
         BaseToken(4, 10000, 10000, name, symbol)

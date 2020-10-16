@@ -2,6 +2,7 @@ module.exports = {
     deployAccount: '0xEa15bd096c5331C5a1392b69dE3F1D8983d5dB7b',
     rewardPerBlock: '100000000000000000000',
     startBlock: 8838000,
+    bonusStartBlock: 8838000,
     bonusEndBlock: 8878000,
     rewardEndBlock: 8918000,
 

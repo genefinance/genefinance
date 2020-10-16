@@ -14,6 +14,7 @@ module.exports = async function (deployer, network, accounts) {
     let _devaddr = deployAccount;
     let rewardPerBlock = config.rewardPerBlock;
     let startBlock = config.startBlock;
+    let bonusStartBlock = config.bonusStartBlock;
     let bonusEndBlock = config.bonusEndBlock;
 
     await deployer.deploy(MasterChef,
@@ -21,6 +22,7 @@ module.exports = async function (deployer, network, accounts) {
         _devaddr,
         rewardPerBlock,
         startBlock,
+        bonusStartBlock,
         bonusEndBlock,
         { from: deployAccount });
 };
