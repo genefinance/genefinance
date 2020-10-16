@@ -15,18 +15,21 @@ contract('Governor', ([alice, minter, dev]) => {
     it('should work', async () => {
         this.mvs = await MvsToken.new({ from: alice });
         await this.mvs.delegate(dev, { from: dev });
-        this.chef = await MasterChef.new(this.mvs.address, dev, '100', '0', '0', { from: alice });
+        this.chef = await MasterChef.new(this.mvs.address, dev, '100', '0', '1000', "2000", { from: alice });
         await this.mvs.transferOwnership(this.chef.address, { from: alice });
         this.lp = await MockERC20.new('LPToken', 'LP', '10000000000', { from: minter });
         this.lp2 = await MockERC20.new('LPToken2', 'LP2', '10000000000', { from: minter });
-        await this.chef.add('100', this.lp.address, true, { from: alice });
+        await this.chef.add('100', 0, "2000", this.lp.address, true, { from: alice });
         await this.lp.approve(this.chef.address, '1000', { from: minter });
         await this.chef.deposit(0, '100', { from: minter });
         // Perform another deposit to make sure some MVSs are minted in that 1 block.
         await this.chef.deposit(0, '100', { from: minter });
-        assert.equal((await this.mvs.totalSupply()).valueOf(), '110');
+        assert.equal((await this.mvs.totalSupply()).valueOf(), '100');
         assert.equal((await this.mvs.balanceOf(minter)).valueOf(), '100');
-        assert.equal((await this.mvs.balanceOf(dev)).valueOf(), '10');
+        assert.equal((await this.mvs.balanceOf(dev)).valueOf(), '0');
+        // await this.mvs.transfer(dev, '10', { from: minter });
+        // assert.equal((await this.mvs.balanceOf(dev)).valueOf(), '10');
+        await this.mvs.delegate(dev, { from: minter });//minter->dev,because dev have no mvs balance.
         // Transfer ownership to timelock contract
         this.timelock = await Timelock.new(alice, time.duration.days(2), { from: alice });
         this.gov = await GovernorAlpha.new(this.timelock.address, this.mvs.address, alice, { from: alice });
@@ -34,23 +37,25 @@ contract('Governor', ([alice, minter, dev]) => {
         await this.gov.__acceptAdmin({ from: alice });
         await this.chef.transferOwnership(this.timelock.address, { from: alice });
         await expectRevert(
-            this.chef.add('100', this.lp2.address, true, { from: alice }),
+            this.chef.add('100', "0", "2000", this.lp2.address, true, { from: alice }),
             'Ownable: caller is not the owner',
         );
         await expectRevert(
             this.gov.propose(
-                [this.chef.address], ['0'], ['add(uint256,address,bool)'],
-                [encodeParameters(['uint256', 'address', 'bool'], ['100', this.lp2.address, true])],
+                [this.chef.address], ['0'], ['add(uint256,uint256,uint256,address,bool)'],
+                [encodeParameters(['uint256', 'uint256', 'uint256', 'address', 'bool'], ['100', "0", "1000", this.lp2.address, true])],
                 'Add LP2',
                 { from: alice },
             ),
             'GovernorAlpha::propose: proposer votes below proposal threshold',
         );
+
         await this.gov.propose(
-            [this.chef.address], ['0'], ['add(uint256,address,bool)'],
-            [encodeParameters(['uint256', 'address', 'bool'], ['100', this.lp2.address, true])],
+            [this.chef.address], ['0'], ['add(uint256,uint256,uint256,address,bool)'],
+            [encodeParameters(['uint256', 'uint256', 'uint256', 'address', 'bool'], ['100', "0", "1000", this.lp2.address, true])],
             'Add LP2',
             { from: dev },
+            // { from: dev }, //error when dev have no mvs banalce/delegate?
         );
         await time.advanceBlock();
         await this.gov.castVote('1', true, { from: dev });

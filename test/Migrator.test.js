@@ -15,10 +15,10 @@ contract('Migrator', ([alice, bob, dev, minter]) => {
         this.token = await MockERC20.new('TOKEN', 'TOKEN', '100000000', { from: minter });
         this.lp1 = await UniswapV2Pair.at((await this.factory1.createPair(this.weth.address, this.token.address)).logs[0].args.pair);
         this.lp2 = await UniswapV2Pair.at((await this.factory2.createPair(this.weth.address, this.token.address)).logs[0].args.pair);
-        this.chef = await MasterChef.new(this.mvs.address, dev, '1000', '0', '100000', { from: alice });
+        this.chef = await MasterChef.new(this.mvs.address, dev, '1000', '0', '10000', '100000', { from: alice });
         this.migrator = await Migrator.new(this.chef.address, this.factory1.address, this.factory2.address, '0');
         await this.mvs.transferOwnership(this.chef.address, { from: alice });
-        await this.chef.add('100', this.lp1.address, true, { from: alice });
+        await this.chef.add('100', '0', '20000', this.lp1.address, true, { from: alice });
     });
 
     it('should do the migration successfully', async () => {

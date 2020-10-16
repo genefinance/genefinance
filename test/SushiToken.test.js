@@ -10,8 +10,8 @@ contract('MvsToken', ([alice, bob, carol]) => {
         const name = await this.mvs.name();
         const symbol = await this.mvs.symbol();
         const decimals = await this.mvs.decimals();
-        assert.equal(name.valueOf(), 'MvsToken');
-        assert.equal(symbol.valueOf(), 'MVS');
+        assert.equal(name.valueOf(), 'GeneToken');
+        assert.equal(symbol.valueOf(), 'GENE');
         assert.equal(decimals.valueOf(), '18');
     });
 
