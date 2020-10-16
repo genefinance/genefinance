@@ -24,12 +24,12 @@ contract('Governor', ([alice, minter, dev]) => {
         await this.chef.deposit(0, '100', { from: minter });
         // Perform another deposit to make sure some MVSs are minted in that 1 block.
         await this.chef.deposit(0, '100', { from: minter });
-        assert.equal((await this.mvs.totalSupply()).valueOf(), '100');
+        assert.equal((await this.mvs.totalSupply()).valueOf(), '115');
         assert.equal((await this.mvs.balanceOf(minter)).valueOf(), '100');
-        assert.equal((await this.mvs.balanceOf(dev)).valueOf(), '0');
+        assert.equal((await this.mvs.balanceOf(dev)).valueOf(), '15');
         // await this.mvs.transfer(dev, '10', { from: minter });
         // assert.equal((await this.mvs.balanceOf(dev)).valueOf(), '10');
-        await this.mvs.delegate(dev, { from: minter });//minter->dev,because dev have no mvs balance.
+        // await this.mvs.delegate(dev, { from: minter });//minter->dev,if dev have no mvs balance.
         // Transfer ownership to timelock contract
         this.timelock = await Timelock.new(alice, time.duration.days(2), { from: alice });
         this.gov = await GovernorAlpha.new(this.timelock.address, this.mvs.address, alice, { from: alice });
@@ -55,7 +55,6 @@ contract('Governor', ([alice, minter, dev]) => {
             [encodeParameters(['uint256', 'uint256', 'uint256', 'address', 'bool'], ['100', "0", "1000", this.lp2.address, true])],
             'Add LP2',
             { from: dev },
-            // { from: dev }, //error when dev have no mvs banalce/delegate?
         );
         await time.advanceBlock();
         await this.gov.castVote('1', true, { from: dev });

@@ -55,7 +55,7 @@ contract('MasterChef', ([alice, bob, carol, dev, minter]) => {
                 return that.chef.emergencyWithdraw(0, { from: bob }).then((res) => {
                     assert.fail("The transaction should have thrown an error");
                 }).catch((err) => {
-                    console.log("emergencyWithdraw error:" + err.message);
+                    //console.log("emergencyWithdraw error:" + err.message);
                     assert.include(err.message, "revert", "The error message should contain 'revert'");
                 })
             }
@@ -90,8 +90,8 @@ contract('MasterChef', ([alice, bob, carol, dev, minter]) => {
             await time.advanceBlockTo('204');
             await this.chef.deposit(0, '0', { from: bob }); // block 205
             assert.equal((await this.mvs.balanceOf(bob)).valueOf(), '500');
-            assert.equal((await this.mvs.balanceOf(dev)).valueOf(), '0');
-            assert.equal((await this.mvs.totalSupply()).valueOf(), '500');
+            assert.equal((await this.mvs.balanceOf(dev)).valueOf(), '75');
+            assert.equal((await this.mvs.totalSupply()).valueOf(), '575');
         });
 
         it('should not distribute MVSs if no one deposit', async () => {
@@ -112,9 +112,9 @@ contract('MasterChef', ([alice, bob, carol, dev, minter]) => {
             assert.equal((await this.lp.balanceOf(bob)).valueOf(), '990');
             await time.advanceBlockTo('419');
             await this.chef.withdraw(0, '10', { from: bob }); // block 220
-            assert.equal((await this.mvs.totalSupply()).valueOf(), '1000');
+            assert.equal((await this.mvs.totalSupply()).valueOf(), '1150');
             assert.equal((await this.mvs.balanceOf(bob)).valueOf(), '1000');
-            assert.equal((await this.mvs.balanceOf(dev)).valueOf(), '0');
+            assert.equal((await this.mvs.balanceOf(dev)).valueOf(), '150');
             assert.equal((await this.lp.balanceOf(bob)).valueOf(), '1000');
         });
 
@@ -137,25 +137,26 @@ contract('MasterChef', ([alice, bob, carol, dev, minter]) => {
             await this.chef.deposit(0, '30', { from: carol });
             // Alice deposits 30 more LPs at block 520. At this point:
             //   Alice should have: 4*100 + 4*1/2*100 + 2*1/5*100 = 640
-            //   MasterChef should have the remaining: 1000 - 640 = 360
+            //   MasterChef should have the remaining: 1000 - 640 = 360，+15%
             await time.advanceBlockTo('519')
             await this.chef.deposit(0, '30', { from: alice });
-            assert.equal((await this.mvs.totalSupply()).valueOf(), '1000');
+            assert.equal((await this.mvs.totalSupply()).valueOf(), '1150');
             assert.equal((await this.mvs.balanceOf(alice)).valueOf(), '640');
             assert.equal((await this.mvs.balanceOf(bob)).valueOf(), '0');
             assert.equal((await this.mvs.balanceOf(carol)).valueOf(), '0');
             assert.equal((await this.mvs.balanceOf(this.chef.address)).valueOf(), '360');
-            assert.equal((await this.mvs.balanceOf(dev)).valueOf(), '0');
+            //console.log("balanceOf:" + (await this.mvs.balanceOf(dev)).valueOf());
+            assert.equal((await this.mvs.balanceOf(dev)).valueOf(), '150');
             // Bob withdraws 5 LPs at block 530. At this point:
             // Bob should have: 4*1/2*100 + 2*1/5*100 + 10*1/8*100 = 365
             await time.advanceBlockTo('529')
             await this.chef.withdraw(0, '5', { from: bob });
-            assert.equal((await this.mvs.totalSupply()).valueOf(), '2000');
+            assert.equal((await this.mvs.totalSupply()).valueOf(), '2300');
             assert.equal((await this.mvs.balanceOf(alice)).valueOf(), '640');
             assert.equal((await this.mvs.balanceOf(bob)).valueOf(), '365');
             assert.equal((await this.mvs.balanceOf(carol)).valueOf(), '0');
             assert.equal((await this.mvs.balanceOf(this.chef.address)).valueOf(), '995');
-            assert.equal((await this.mvs.balanceOf(dev)).valueOf(), '0');
+            assert.equal((await this.mvs.balanceOf(dev)).valueOf(), '300');
 
         });
 
@@ -208,7 +209,7 @@ contract('MasterChef', ([alice, bob, carol, dev, minter]) => {
 
             await time.advanceBlockTo('905');
             //(900-806)*1000+5*100
-            console.log("balanceOf:" + (await this.chef.pendingMvs(0, alice)).valueOf());
+            //console.log("balanceOf:" + (await this.chef.pendingMvs(0, alice)).valueOf());
             assert.equal((await this.chef.pendingMvs(0, alice)).valueOf(), '94500');
 
             // #906
@@ -217,7 +218,7 @@ contract('MasterChef', ([alice, bob, carol, dev, minter]) => {
             assert.equal((await this.mvs.balanceOf(alice)).valueOf(), '101600');
 
             await time.advanceBlockTo('916');
-            assert.equal((await this.chef.pendingMvs(0, alice)).valueOf(), '1000'); 
+            assert.equal((await this.chef.pendingMvs(0, alice)).valueOf(), '1000');
         });
 
 
@@ -257,7 +258,7 @@ contract('MasterChef', ([alice, bob, carol, dev, minter]) => {
 
             await this.chef.deposit(0, '10', { from: alice });
             assert.equal((await this.lp.balanceOf(alice)).valueOf(), '990');
-            
+
             await time.advanceBlockTo('1090');
 
             let that = this;
@@ -266,7 +267,7 @@ contract('MasterChef', ([alice, bob, carol, dev, minter]) => {
                 return that.chef.withdraw(0, '5', { from: alice }).then((res) => {
                     assert.fail("The transaction should have thrown an error");
                 }).catch((err) => {
-                    console.log("emergencyWithdraw error:" + err.message);
+                    //console.log("emergencyWithdraw error:" + err.message);
                     assert.include(err.message, "revert", "The error message should contain 'revert'");
                 })
             }
@@ -288,7 +289,7 @@ contract('MasterChef', ([alice, bob, carol, dev, minter]) => {
 
             await this.chef.deposit(0, '10', { from: alice });
             assert.equal((await this.lp.balanceOf(alice)).valueOf(), '990');
-            
+
 
             let that = this;
             async function shouldError() {
@@ -296,7 +297,7 @@ contract('MasterChef', ([alice, bob, carol, dev, minter]) => {
                 return that.chef.withdraw(0, '11', { from: alice }).then((res) => {
                     assert.fail("The transaction should have thrown an error");
                 }).catch((err) => {
-                    console.log("emergencyWithdraw error:" + err.message);
+                    //console.log("emergencyWithdraw error:" + err.message);
                     assert.include(err.message, "revert", "The error message should contain 'revert'");
                 })
             }
@@ -307,7 +308,7 @@ contract('MasterChef', ([alice, bob, carol, dev, minter]) => {
             assert.equal((await this.lp.balanceOf(alice)).valueOf(), '1000');
         });
 
-        
+
 
     });
 });
