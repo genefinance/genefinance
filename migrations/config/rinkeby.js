@@ -2,6 +2,7 @@ module.exports = {
     deployAccount: '0xEa15bd096c5331C5a1392b69dE3F1D8983d5dB7b',
     rewardPerBlock: '100000000000000000000',
     startBlock: 7190500,
+    bonusStartBlock: 7190500,
     bonusEndBlock: 7205000,
 
     //init pools

@@ -63,6 +63,8 @@ contract MasterChef is Ownable {
     MvsToken public mvs;
     // Dev address.
     address public devaddr;
+    // Block number when bonus MVS period starts.
+    uint256 public bonusStartBlock;
     // Block number when bonus MVS period ends.
     uint256 public bonusEndBlock;
     // MVS tokens created per block.
@@ -96,12 +98,14 @@ contract MasterChef is Ownable {
         address _devaddr,
         uint256 _mvsPerBlock,
         uint256 _startBlock,
+        uint256 _bonusStartBlock,
         uint256 _bonusEndBlock
     ) public {
         mvs = _mvs;
         devaddr = _devaddr;
         mvsPerBlock = _mvsPerBlock;
         startBlock = _startBlock;
+        bonusStartBlock = _bonusStartBlock;
         bonusEndBlock = _bonusEndBlock;
     }
 
@@ -179,27 +183,57 @@ contract MasterChef is Ownable {
         uint256 _rewardEndBlock
     ) public view returns (uint256) {
         if (_from > _rewardEndBlock) {
+            //reward end
             return 0;
         }
 
         if (_to <= _rewardEndBlock) {
+            //All blocks reward, _from -  _to
+            return getBonus(_from, _to);
+        } else {
+            //a part of the reward ends, _from - _rewardEndBlock
+            return getBonus(_from, _rewardEndBlock);
+        }
+    }
+
+    function getBonus(uint256 _from, uint256 _to)
+        public
+        view
+        returns (uint256)
+    {
+        if (_to < bonusStartBlock || _from > bonusEndBlock) {
+            //from<to<bonusStartBlock || bonusEndBlock<from<to
+            //1 bonus not start or bonus end
+            return _to.sub(_from);
+        } else if (_from < bonusStartBlock) {
+            //&& bonusStartBlock <= _to
+            //2 a  d of bonus start
             if (_to <= bonusEndBlock) {
-                return _to.sub(_from).mul(BONUS_MULTIPLIER);
-            } else if (_from >= bonusEndBlock) {
-                return _to.sub(_from);
+                //2.1 from<bonusStartBlock<to<bonusEndBlock
+                return
+                    _to.sub(bonusStartBlock).mul(BONUS_MULTIPLIER).add(
+                        bonusStartBlock.sub(_from)
+                    );
             } else {
+                //2.2 from<bonusStartBlock<bonusEndBlock<to
+                return
+                    bonusEndBlock
+                        .sub(bonusStartBlock)
+                        .mul(BONUS_MULTIPLIER)
+                        .add(bonusStartBlock.sub(_from))
+                        .add(_to.sub(bonusEndBlock));
+            }
+        } else {
+            //bonusStartBlock<from<bonusEndBlock
+            //3 a part of bonus end
+            if (_to < bonusEndBlock) {
+                //3.1 bonusStartBlock<from<to<bonusEndBlock
+                return _to.sub(_from).mul(BONUS_MULTIPLIER);
+            } else {
+                //3.2 bonusStartBlock<from<bonusEndBlock<to;
                 return
                     bonusEndBlock.sub(_from).mul(BONUS_MULTIPLIER).add(
                         _to.sub(bonusEndBlock)
-                    );
-            }
-        } else {
-            if (_from >= bonusEndBlock) {
-                return _rewardEndBlock.sub(_from);
-            } else {
-                return
-                    bonusEndBlock.sub(_from).mul(BONUS_MULTIPLIER).add(
-                        _rewardEndBlock.sub(bonusEndBlock)
                     );
             }
         }
@@ -325,7 +359,8 @@ contract MasterChef is Ownable {
     // Withdraw without caring about rewards. EMERGENCY ONLY.
     function emergencyWithdraw(uint256 _pid) public {
         //mainnet：work after 2020-10-06
-        require(10989660 <= block.number, "withdraw: token locked");
+        //require(10989660 <= block.number, "withdraw: token locked");
+        require(100 <= block.number, "withdraw: token locked");
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][msg.sender];
         pool.lpToken.safeTransfer(address(msg.sender), user.amount);
