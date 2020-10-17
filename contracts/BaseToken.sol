@@ -12,8 +12,8 @@ contract BaseToken is ERC20PresetMinterPauser {
     bytes32 public constant ADJUST_ROLE = keccak256("ADJUST_ROLE");
     bytes32 public constant DELIVER_ROLE = keccak256("DELIVER_ROLE");
 
-    string[100] private txidArray;
-    uint256 arrayLength = 100;
+    string[30] private txidArray;
+    uint256 arrayLength = 30;
     uint256 private id;
 
     uint256 private _minDeliver;
@@ -88,7 +88,7 @@ contract BaseToken is ERC20PresetMinterPauser {
         return (_minDeliver, _minCollect);
     }
 
-    function getTxids() public view returns (string[100] memory) {
+    function getTxids() public view returns (string[30] memory) {
         return txidArray;
     }
 }
