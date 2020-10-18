@@ -1,2 +1,8 @@
+.DS_Store
 /node_modules/
 /build/
+/exec/bak
+/exec/test
+exec/pools
+/sols/
+.env
