@@ -42,12 +42,12 @@ module.exports = {
     },
     ropsten: {
       provider: function () {
-        return new HDWalletProvider(privatekey_ropsten, "ws://54.150.115.249:8546")
-        //return new HDWalletProvider(privatekey_ropsten, "https://ropsten.infura.io/v3/" + infura_v3_apikey)
+        //return new HDWalletProvider(privatekey_ropsten, "ws://54.150.115.249:8546")
+        return new HDWalletProvider(privatekey_ropsten, "https://ropsten.infura.io/v3/" + infura_v3_apikey)
       },
       network_id: 3,
       gas: 6000000,
-      gasPrice: 30000000000,
+      gasPrice: 30 * 1000000000,
       skipDryRun: true,
       networkCheckTimeout: 60000,
     },
@@ -61,7 +61,9 @@ module.exports = {
       },
       gas: 6000000,
       network_id: 1,
-      gasPrice: 10 * 1000000000
+      gasPrice: 50 * 1000000000,
+      skipDryRun: true,
+      networkCheckTimeout: 600000,
     }
 
   },

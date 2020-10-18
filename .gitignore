@@ -3,5 +3,6 @@
 /build/
 /exec/bak
 /exec/test
+exec/pools
 /sols/
 .env

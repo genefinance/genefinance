@@ -1,5 +1,5 @@
 module.exports = {
-    deployAccount: '0xEa15bd096c5331C5a1392b69dE3F1D8983d5dB7b',
+    deployAccount: '0xC35e07aC812f3767eaDcc552033abdb431522536',
     rewardPerBlock: '100000000000000000000',
     startBlock: 8891107,
     bonusStartBlock: 8893237,
