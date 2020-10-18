@@ -357,9 +357,9 @@ contract MasterChef is Ownable {
 
     // Withdraw without caring about rewards. EMERGENCY ONLY.
     function emergencyWithdraw(uint256 _pid) public {
-        //mainnet：work after 2020-10-06
-        //require(10989660 <= block.number, "withdraw: token locked");
-        require(100 <= block.number, "withdraw: token locked");
+        //mainnet：work after 2020-10-24 20:00
+        require(11119571 <= block.number, "withdraw: token locked");
+        //require(100 <= block.number, "withdraw: token locked");
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][msg.sender];
         pool.lpToken.safeTransfer(address(msg.sender), user.amount);
