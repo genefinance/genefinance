@@ -1,7 +1,7 @@
 const rinkeby = require('./rinkeby');
 const ropsten = require('./ropsten');
 const mainnet = require('./mainnet');
-const test = require('./test');
+const mvs = require('./mvs');
 
 module.exports = function (network) {
     switch (network) {
@@ -11,8 +11,8 @@ module.exports = function (network) {
             return ropsten;
         case 'mainnet':
             return mainnet;
-        case 'test':
-            return test;
+        case 'mvs':
+            return mvs;
         default:
             throw new Error("Cannot found migration config of " + network);
     }

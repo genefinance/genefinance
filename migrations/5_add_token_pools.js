@@ -8,7 +8,7 @@ const MvsToken = artifacts.require("MvsToken");
 
 module.exports = async function (deployer, network, accounts) {
 
-    if (network == 'test') {
+    if (network == 'mvs') {
         //Is it OK?
         return;
     }

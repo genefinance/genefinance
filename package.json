@@ -4,15 +4,24 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@metamask/detect-provider": "^1.2.0",
     "@openzeppelin/contracts": "^3.1.0",
-    "@openzeppelin/test-helpers": "^0.5.6",
+    "@polkadot/keyring": "^7.8.2",
+    "@polkadot/util-crypto": "^7.8.2",
     "@truffle/hdwallet-provider": "^1.0.44",
-    "dotenv": "^8.2.0",
+    "dotenv": "^10.0.0",
     "truffle": "^5.1.41",
     "truffle-flattener": "^1.4.4",
-    "web3-provider-engine": "^15.0.12"
+    "web3-eth-accounts": "^1.6.0",
+    "web3-eth-personal": "^1.6.0",
+    "web3-provider-engine": "^15.0.12",
+    "yarn": "^1.22.17"
   },
   "devDependencies": {
+    "@openzeppelin/test-helpers": "^0.5.15",
     "truffle-plugin-verify": "^0.4.0"
+  },
+  "optionalDependencies": {
+    "bufferutil": "^4.0.5"
   }
 }

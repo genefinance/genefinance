@@ -3,7 +3,7 @@ const MasterChef = artifacts.require("MasterChef");
 
 module.exports = async function (deployer, network, accounts) {
     let instance = await MasterChef.deployed();
-    if (network == 'test') {
+    if (network == 'mvs') {
         //Is it OK?
         return;
     }

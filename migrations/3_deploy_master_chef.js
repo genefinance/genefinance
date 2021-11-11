@@ -16,7 +16,6 @@ module.exports = async function (deployer, network, accounts) {
     let startBlock = config.startBlock;
     let bonusStartBlock = config.bonusStartBlock;
     let bonusEndBlock = config.bonusEndBlock;
-
     await deployer.deploy(MasterChef,
         MvsToken.address,
         _devaddr,

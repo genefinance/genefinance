@@ -12,59 +12,56 @@ const HDWalletProvider = require("@truffle/hdwallet-provider");
 const infura_v3_apikey = process.env.infura_v3_apikey;
 
 const privatekey_develop = process.env.privatekey_develop;
+const privatekey_mvs = '99b3c12287537e38c90a9219d4cb074a89a16e9cdb20bf85728ebd97c343e342';
 const privatekey_rinkeby = process.env.privatekey_rinkeby;
 const privatekey_ropsten = process.env.privatekey_ropsten;
 const privatekey_mainnet = process.env.privatekey_mainnet;
 const etherscan_api_key = process.env.etherscan_api_key;
 
 
+//alice->0xfc1f187Aeae434743D59eE87c8C5bb6A19Cae33c
+//Public address: 0xF693807ac9B654C8FbC59587Fa4de2d908EDDa17
+//Public address: 0x2Dc028fa731Ade3B0C190c45Ccb504e16924c2D4
+//Public address: 0x41FB38d8A49ef53836016455A1Dff8bCBb884fb4
+//Public address: 0xFDC1dB43Fdf1c3a33254BBb7A8F644503734F449
+//Public address: 0xb22810e69c94F8d78251540468604c399A0c1513
+
+//Private key: 0xbdf8e72ae606818170566b91652d387c4fd2b5a20b946e76718983a6d7369b09
+//Private key: 0xb5ac86ac75551fe59c93b4155e5f4ca90c8a5636713976c5f73a3f6ebe4d6143
+//Private key: 0x18eb7e6e4e0995fd44d25d0eb113976b875425300ba257d5f60656ad71a5630b
+//Private key: 0xf5e58104ad3008536d10280394a57171ffb2f850dcc3ab83b42baa36f089115c
+//Private key: 0x985709b340a88917ea08b0ce0c287cfc48c1d13f140f7fe265df7445450792b7
+
+var privatekeys = [
+	'0xbdf8e72ae606818170566b91652d387c4fd2b5a20b946e76718983a6d7369b09',
+	'0xb5ac86ac75551fe59c93b4155e5f4ca90c8a5636713976c5f73a3f6ebe4d6143',
+	'0xf5e58104ad3008536d10280394a57171ffb2f850dcc3ab83b42baa36f089115c',
+	'0x18eb7e6e4e0995fd44d25d0eb113976b875425300ba257d5f60656ad71a5630b',
+	'0x985709b340a88917ea08b0ce0c287cfc48c1d13f140f7fe265df7445450792b7',
+];
+
 module.exports = {
-  // Uncommenting the defaults below
-  // provides for an easier quick-start with Ganache.
-  // You can also follow this format for other networks;
-  // see <http://truffleframework.com/docs/advanced/configuration>
-  // for more details on how to specify configuration options!
-  //
+
   networks: {
-    // development: {
-    //   //https://learnblockchain.cn/docs/truffle/quickstart.html#truffle-develop
-    //   provider: new HDWalletProvider(privatekey_develop, "http://127.0.0.1:9545/"),
-    //   network_id: "*"
-    // },
-    rinkeby: {
-      provider: function () {
-        return new HDWalletProvider(privatekey_rinkeby, "https://rinkeby.infura.io/v3/" + infura_v3_apikey)
-      },
-      network_id: 4,
-      gas: 6000000,
-      gasPrice: 30000000000,
-      skipDryRun: true
+    test: {
+      host: "127.0.0.1",
+      port: 7545,
+      network_id: "*",
+      from: "0xfc1f187Aeae434743D59eE87c8C5bb6A19Cae33c" //your ganache settings
     },
-    ropsten: {
-      provider: function () {
-        //return new HDWalletProvider(privatekey_ropsten, "ws://54.150.115.249:8546")
-        return new HDWalletProvider(privatekey_ropsten, "https://ropsten.infura.io/v3/" + infura_v3_apikey)
-      },
-      network_id: 3,
-      gas: 6000000,
-      gasPrice: 30 * 1000000000,
-      skipDryRun: true,
-      networkCheckTimeout: 60000,
-    },
-    mainnet: {
-      provider: function () {
-        var wallet = new HDWalletProvider(privatekey_mainnet, "https://mainnet.infura.io/v3/" + infura_v3_apikey);
-        var nonceTracker = new NonceTrackerSubprovider();
-        wallet.engine._providers.unshift(nonceTracker);
-        nonceTracker.setEngine(wallet.engine);
-        return wallet;
-      },
-      gas: 6000000,
-      network_id: 1,
-      gasPrice: 50 * 1000000000,
-      skipDryRun: true,
-      networkCheckTimeout: 600000,
-    }
+    mvs: {
+       provider: function (){
+       	 	return new HDWalletProvider(
+          		alice,
+		  "http://127.0.0.1:9933",		    
+		);
+	},
+	gas: 6000000,
+        gasPrice: 10,
+       skipDryRun: true,
+       networkCheckTimeout: 6000000,
+	network_id: "*",
+      }
 
   },
   compilers: {
